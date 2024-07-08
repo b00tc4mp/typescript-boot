@@ -1,0 +1,15 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc *.ts --target esnext",
+    "test": "node index.test.js",
+    "compile-test": "tsc --noEmit index.ts && tsx index.test.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
