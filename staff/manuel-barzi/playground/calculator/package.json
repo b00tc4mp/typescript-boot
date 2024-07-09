@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc *.ts --target esnext",
     "test": "node index.test.js",
-    "compile-test": "tsc --noEmit index.ts && tsx index.test.ts"
+    "compile-test": "tsc --noEmit index.ts && tsx index.test.ts",
+    "compile-test-inspect": "tsc --noEmit index.ts && tsx --inspect-brk index.test.ts"
   },
   "keywords": [],
   "author": "",
