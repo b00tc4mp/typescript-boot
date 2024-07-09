@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsc --noEmit index.ts && tsx ./index.ts"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +12,8 @@
   "devDependencies": {
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "tsx": "^4.16.2"
   }
 }
