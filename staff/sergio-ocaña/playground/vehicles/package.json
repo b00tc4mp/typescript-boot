@@ -1,0 +1,16 @@
+{
+  "name": "vehicles",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc *.ts",
+    "eval": "tsx Vehicle.test.ts",
+    "test": "tsc --noEmit ./*.ts && tsx Vehicle.test.ts",
+    "demo": "tsx Vehicle.demo.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

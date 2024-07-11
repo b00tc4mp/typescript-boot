@@ -1,0 +1,16 @@
+{
+  "name": "repository",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test-FS": "tsc && tsx RepoFS.demo.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^20.14.10"
+  }
+}
