@@ -3,7 +3,7 @@ type Doc = {
     value: any
 }
 
-class Repo {
+class RepoM {
     col: Doc[] = []
 
     insert(doc: Doc) {
@@ -18,4 +18,4 @@ class Repo {
     }
 }
 
-export default Repo
+export default RepoM

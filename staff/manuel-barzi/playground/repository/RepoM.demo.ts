@@ -1,8 +1,8 @@
 debugger
 
-import Repo from './Repo'
+import RepoM from './RepoM'
 
-const repo = new Repo
+const repo = new RepoM
 
 console.log(repo)
 

@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "NodeNext",
+        "target": "ESNext",
+        "allowJs": true,
+        "moduleResolution": "NodeNext",
+    },
+    "include": [
+        "./**/*"
+    ]
+}
