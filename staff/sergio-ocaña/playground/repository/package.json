@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test-FS": "tsc && tsx RepoFS.demo.ts"
+    "test-FS": "tsc && tsx RepoFS.demo.ts",
+    "test-M": "tsc --noEmit && tsx RepoM.demo.ts"
   },
   "keywords": [],
   "author": "",
