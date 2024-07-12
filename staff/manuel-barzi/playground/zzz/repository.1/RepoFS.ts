@@ -1,8 +1,11 @@
 import { readFileSync, writeFileSync } from 'fs'
 
-import { Doc, IRepo } from "./types"
+type Doc = {
+    id: number,
+    value: any
+}
 
-class RepoFS implements IRepo {
+class RepoFS {
     insert(doc: Doc) {
         let colJSON = readFileSync("./col.json", "utf-8")
 
@@ -28,16 +31,6 @@ class RepoFS implements IRepo {
         colJSON = JSON.stringify(col)
 
         writeFileSync("./col.json", colJSON)
-    }
-
-    find(condition: (value: Doc, index: number, col: Doc[]) => boolean): null | Doc {
-        let colJSON = readFileSync("./col.json", "utf-8")
-
-        const col = JSON.parse(colJSON)
-
-        const doc = col.find(condition)
-
-        return doc || null
     }
 }
 
