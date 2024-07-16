@@ -3,41 +3,51 @@ import { readFileSync, writeFileSync } from 'fs'
 import { Doc, IRepo } from "./types"
 
 class RepoFS implements IRepo {
-    insert(doc: Doc) {
-        let colJSON = readFileSync("./col.json", "utf-8")
+    insert(doc: Doc): Promise<void> {
+        return new Promise((resolve, reject) => {
+            let colJSON = readFileSync("./col.json", "utf-8")
 
-        const col = JSON.parse(colJSON)
+            const col = JSON.parse(colJSON)
 
-        col.push(doc)
+            col.push(doc)
 
-        colJSON = JSON.stringify(col)
+            colJSON = JSON.stringify(col)
 
-        writeFileSync("./col.json", colJSON)
+            writeFileSync("./col.json", colJSON)
+
+            resolve()
+        })
     }
 
-    deleteById(id: number) {
-        let colJSON = readFileSync("./col.json", "utf-8")
+    deleteById(id: number): Promise<void> {
+        return new Promise((resolve, reject) => {
+            let colJSON = readFileSync("./col.json", "utf-8")
 
-        const col = JSON.parse(colJSON)
+            const col = JSON.parse(colJSON)
 
-        const index = col.findIndex((doc: Doc) => doc.id === id)
+            const index = col.findIndex((doc: Doc) => doc.id === id)
 
-        if (index > -1)
-            col.splice(index, 1)
+            if (index > -1)
+                col.splice(index, 1)
 
-        colJSON = JSON.stringify(col)
+            colJSON = JSON.stringify(col)
 
-        writeFileSync("./col.json", colJSON)
+            writeFileSync("./col.json", colJSON)
+
+            resolve()
+        })
     }
 
-    find(condition: (value: Doc, index: number, col: Doc[]) => boolean): null | Doc {
-        let colJSON = readFileSync("./col.json", "utf-8")
+    find(condition: (value: Doc, index: number, col: Doc[]) => boolean): Promise<null | Doc> {
+        return new Promise((resolve, reject) => {
+            let colJSON = readFileSync("./col.json", "utf-8")
 
-        const col = JSON.parse(colJSON)
+            const col = JSON.parse(colJSON)
 
-        const doc = col.find(condition)
+            const doc = col.find(condition)
 
-        return doc || null
+            resolve(doc || null)
+        })
     }
 }
 
