@@ -13,13 +13,12 @@ function calculate(op: 'add' | 'sub' | 'mul' | 'div', a: number, b: number) {
             } else {
                 throw new Error('Division by zero is not possible')
             }
-        default:
-            throw new Error("Invalid operation.");
-
     }
     // TODO
 }
 
+
+export default calculate
 console.log(calculate('add', 1, 2))
 // 3
 
