@@ -6,39 +6,39 @@ import { Doc, IRepo } from './types.ts'
 class RepoDB implements IRepo {
     client: MongoClient
 
-    connect(): Promise<void> {
+    async connect(): Promise<void> {
         this.client = new MongoClient('mongodb://localhost/repository')
 
-        return this.client.connect().then(() => { });
+        await this.client.connect();
     }
 
-    disconnect(): Promise<void> {
-        return this.client.close();
+    async disconnect(): Promise<void> {
+        await this.client.close();
     }
 
-    insert(doc: Doc): Promise<void> {
+    async insert(doc: Doc): Promise<void> {
         const col = this.client.db().collection('col');
 
-        return col.insertOne(doc).then(() => { });
+        await col.insertOne(doc)
     }
 
-    deleteById(id: number): Promise<void> {
+    async deleteById(id: number): Promise<void> {
         const col = this.client.db().collection('col');
 
-        return col.deleteOne({ id }).then(() => { });
+        await col.deleteOne({ id }).then(() => { });
     }
 
-    find(condition: (value: Doc, index: number, col: Doc[]) => boolean): Promise<null | Doc> {
+    async find(condition: (value: Doc, index: number, col: Doc[]) => boolean): Promise<null | Doc> {
         const col = this.client.db().collection('col');
 
-        return col.find({}).toArray()
-            .then(col => {
-                let col2 = col.map(({ id, value }) => ({ id, value } as Doc));
+        const docs = await col.find({}).toArray()
 
-                const doc = col2.find(condition);
+        let docs2 = docs.map(({ id, value }) => ({ id, value } as Doc));
 
-                return doc || null;
-            })
+        const doc = docs2.find(condition);
+
+        return doc || null;
+
     }
 }
 

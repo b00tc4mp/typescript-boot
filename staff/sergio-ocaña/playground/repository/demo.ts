@@ -9,34 +9,53 @@ const repoDB = new RepoDB
 
 let repo: IRepo
 
-repo = repoM
-repo.insert({ id: 1, value: 'hola mundo' })
-    .then(() => console.log(repo))
-    .then(() => repo.insert({ id: 2, value: 'hello world' }))
-    .then(() => console.log(repo))
-    .then(() => repo.insert({ id: 3, value: 'ciao mondo' }))
-    .then(() => console.log(repo))
-    .then(() => repo.deleteById(2))
-    .then(() => console.log(repo))
-    .catch(error => console.error(error))
-    .finally(() => {
-        repo = repoFS
+const main = async () => {
+    try {
+        repo = repoM
 
-        return repo.insert({ id: 1, value: 'hola mundo' })
-            .then(() => repo.insert({ id: 2, value: 'hello world' }))
-            .then(() => repo.insert({ id: 3, value: 'ciao mondo' }))
-            .then(() => repo.deleteById(2))
-            .catch(error => console.error(error))
-    })
-    .then(() => repoDB.connect())
-    .then(() => {
-        repo = repoDB
+        await repo.insert({ id: 1, value: 'hola mundo' })
+        console.log(repo)
 
-        return repo.insert({ id: 1, value: 'hola mundo' })
-            .then(() => repo.insert({ id: 2, value: 'hello world' }))
-            .then(() => repo.insert({ id: 3, value: 'ciao mondo' }))
-            .then(() => repo.deleteById(2))
-            .catch(error => console.error(error))
-    })
-    .then(() => repoDB.disconnect())
-    .then(() => console.log('end'))
+        await repo.insert({ id: 2, value: 'hello world' })
+        console.log(repo)
+
+        await repo.insert({ id: 3, value: 'ciao mondo' })
+        console.log(repo)
+
+        await repo.deleteById(2)
+        console.log(repo)
+
+    } catch (error) {
+        console.error(error)
+    } finally {
+        try {
+            repo = repoFS
+
+            await repo.insert({ id: 1, value: 'hola mundo' })
+            await repo.insert({ id: 2, value: 'hello world' })
+            await repo.insert({ id: 3, value: 'ciao mondo' })
+
+            await repo.deleteById(2)
+
+        } catch (error) {
+            console.error(error)
+
+        } finally {
+            try {
+                repo = repoDB
+
+                await repo.insert({ id: 1, value: 'hola mundo' })
+                await repo.insert({ id: 2, value: 'hello world' })
+                await repo.insert({ id: 3, value: 'ciao mondo' })
+
+                await repo.deleteById(2)
+
+            } catch (error) {
+                console.error(error)
+            } finally {
+                await repo.disconnect() //¿importar indiviualmente repoDB?
+            }
+        }
+    }
+}
+main()
