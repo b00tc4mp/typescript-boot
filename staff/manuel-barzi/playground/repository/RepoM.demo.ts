@@ -6,12 +6,26 @@ const repo = new RepoM
 
 console.log(repo)
 
-repo.insert({ id: 1, value: 'hola mundo' })
-    .then(() => console.log(repo))
-    .then(() => repo.insert({ id: 2, value: 'hello world' }))
-    .then(() => console.log(repo))
-    .then(() => repo.insert({ id: 3, value: 'ciao mondo' }))
-    .then(() => console.log(repo))
-    .then(() => repo.deleteById(2))
-    .then(() => console.log(repo))
-    .catch(error => console.error(error))
+const main = async () => {
+    try {
+        await repo.insert({ id: 1, value: 'hola mundo' })
+
+        console.log(repo)
+
+        await repo.insert({ id: 2, value: 'hello world' })
+
+        console.log(repo)
+
+        await repo.insert({ id: 3, value: 'ciao mondo' })
+
+        console.log(repo)
+
+        await repo.deleteById(2)
+
+        console.log(repo)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+main()

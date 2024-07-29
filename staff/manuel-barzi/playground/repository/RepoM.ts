@@ -3,31 +3,21 @@ import { Doc, IRepo } from "./types"
 class RepoM implements IRepo {
     col: Doc[] = []
 
-    insert(doc: Doc): Promise<void> {
-        return new Promise((resolve, reject) => {
-            this.col.push(doc)
-
-            resolve()
-        })
+    async insert(doc: Doc): Promise<void> {
+        this.col.push(doc)
     }
 
-    deleteById(id: number): Promise<void> {
-        return new Promise((resolve, reject) => {
-            const index = this.col.findIndex((doc: Doc) => doc.id === id)
+    async deleteById(id: number): Promise<void> {
+        const index = this.col.findIndex((doc: Doc) => doc.id === id)
 
-            if (index > -1)
-                this.col.splice(index, 1)
-
-            resolve()
-        })
+        if (index > -1)
+            this.col.splice(index, 1)
     }
 
-    find(condition: (value: Doc, index: number, col: Doc[]) => boolean): Promise<null | Doc> {
-        return new Promise((resolve, reject) => {
-            const doc = this.col.find(condition)
+    async find(condition: (value: Doc, index: number, col: Doc[]) => boolean): Promise<null | Doc> {
+        const doc = this.col.find(condition)
 
-            resolve(doc || null)
-        })
+        return doc || null
     }
 }
 

@@ -1,53 +1,43 @@
-import { readFileSync, writeFileSync } from 'fs'
+import { readFile, writeFile } from 'fs/promises'
 
 import { Doc, IRepo } from "./types"
 
 class RepoFS implements IRepo {
-    insert(doc: Doc): Promise<void> {
-        return new Promise((resolve, reject) => {
-            let colJSON = readFileSync("./col.json", "utf-8")
+    async insert(doc: Doc): Promise<void> {
+        let colJSON = await readFile("./col.json", "utf-8")
 
-            const col = JSON.parse(colJSON)
+        const col = JSON.parse(colJSON)
 
-            col.push(doc)
+        col.push(doc)
 
-            colJSON = JSON.stringify(col)
+        colJSON = JSON.stringify(col)
 
-            writeFileSync("./col.json", colJSON)
-
-            resolve()
-        })
+        await writeFile("./col.json", colJSON)
     }
 
-    deleteById(id: number): Promise<void> {
-        return new Promise((resolve, reject) => {
-            let colJSON = readFileSync("./col.json", "utf-8")
+    async deleteById(id: number): Promise<void> {
+        let colJSON = await readFile("./col.json", "utf-8")
 
-            const col = JSON.parse(colJSON)
+        const col = JSON.parse(colJSON)
 
-            const index = col.findIndex((doc: Doc) => doc.id === id)
+        const index = col.findIndex((doc: Doc) => doc.id === id)
 
-            if (index > -1)
-                col.splice(index, 1)
+        if (index > -1)
+            col.splice(index, 1)
 
-            colJSON = JSON.stringify(col)
+        colJSON = JSON.stringify(col)
 
-            writeFileSync("./col.json", colJSON)
-
-            resolve()
-        })
+        await writeFile("./col.json", colJSON)
     }
 
-    find(condition: (value: Doc, index: number, col: Doc[]) => boolean): Promise<null | Doc> {
-        return new Promise((resolve, reject) => {
-            let colJSON = readFileSync("./col.json", "utf-8")
+    async find(condition: (value: Doc, index: number, col: Doc[]) => boolean): Promise<null | Doc> {
+        let colJSON = await readFile("./col.json", "utf-8")
 
-            const col = JSON.parse(colJSON)
+        const col = JSON.parse(colJSON)
 
-            const doc = col.find(condition)
+        const doc = col.find(condition)
 
-            resolve(doc || null)
-        })
+        return doc || null
     }
 }
 
