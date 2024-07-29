@@ -1,36 +1,52 @@
 import { readFileSync, writeFileSync } from 'fs'
 
-type Doc = {
-    id: number,
-    value: any
-}
+import { Doc, IRepo } from './types.ts';
 
-class RepoFS {
-    insert(doc: Doc) {
-        let colJSON = readFileSync("./col.json", "utf-8");
+class RepoFS implements IRepo {
+    insert(doc: Doc): Promise<void> {
+        return new Promise((resolve, rejected) => {
 
-        const col = JSON.parse(colJSON);
+            let colJSON = readFileSync("./col.json", "utf-8");
 
-        col.push(doc);
+            const col = JSON.parse(colJSON);
 
-        colJSON = JSON.stringify(col);
+            col.push(doc);
 
-        writeFileSync("./col.json", colJSON);
+            colJSON = JSON.stringify(col);
+
+            writeFileSync("./col.json", colJSON);
+            resolve()
+        })
     }
 
-    deleteById(id: number) {
-        let colJSON = readFileSync("./col.json", "utf-8");
+    deleteById(id: number): Promise<void> {
+        return new Promise((resolve, rejected) => {
+            let colJSON = readFileSync("./col.json", "utf-8");
 
-        const col = JSON.parse(colJSON);
+            const col = JSON.parse(colJSON);
 
-        const index = col.findIndex((doc: Doc) => doc.id === id);
+            const index = col.findIndex((doc: Doc) => doc.id === id);
 
-        if (index > -1)
-            col.splice(index, 1);
+            if (index > -1)
+                col.splice(index, 1);
 
-        colJSON = JSON.stringify(col);
+            colJSON = JSON.stringify(col);
 
-        writeFileSync("./col.json", colJSON);
+            writeFileSync("./col.json", colJSON);
+            resolve()
+        })
+    }
+    find(condition: (value: Doc, index: number, col: Doc[]) => boolean): Promise<null | Doc> {
+        return new Promise((resolve, rejected) => {
+            let colJSON = readFileSync("./col.json", "utf-8")
+
+            const col = JSON.parse(colJSON)
+
+            const doc = col.find(condition)
+
+            resolve(doc || null)
+
+        })
     }
 }
 export default RepoFS
