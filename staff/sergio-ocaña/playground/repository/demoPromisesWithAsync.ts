@@ -5,7 +5,7 @@ import RepoDB from "./RepoDB.ts";
 
 const repoM = new RepoM
 const repoFS = new RepoFS
-const repoDB = new RepoDB
+const repoDB: RepoDB = new RepoDB
 
 let repo: IRepo
 
@@ -44,6 +44,8 @@ const main = async () => {
             try {
                 repo = repoDB
 
+                await repoDB.connect()
+
                 await repo.insert({ id: 1, value: 'hola mundo' })
                 await repo.insert({ id: 2, value: 'hello world' })
                 await repo.insert({ id: 3, value: 'ciao mondo' })
@@ -53,7 +55,7 @@ const main = async () => {
             } catch (error) {
                 console.error(error)
             } finally {
-                await repo.disconnect() //¿importar indiviualmente repoDB?
+                await repoDB.disconnect() //¿importar indiviualmente repoDB?
             }
         }
     }

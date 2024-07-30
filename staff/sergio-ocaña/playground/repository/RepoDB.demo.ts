@@ -1,8 +1,8 @@
 debugger
 
-import repoDB from './RepoDB.ts'
+import RepoDB from './RepoDB.ts'
 
-const repo = new repoDB
+const repo = new RepoDB
 
 const main = async () => {
     try {
