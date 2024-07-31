@@ -4,7 +4,7 @@ export type Doc = {
 }
 
 export interface IRepo {
-    insert(doc: Doc): Promise<void>
-    deleteById(id: number): Promise<void>
-    find(condition: (value: Doc, index: number, col: Doc[]) => boolean): Promise<null | Doc>
+    insert(doc: Doc): void
+    deleteById(id: number): void
+    find(condition: (value: Doc, index: number, col: Doc[]) => boolean): null | Doc
 }
