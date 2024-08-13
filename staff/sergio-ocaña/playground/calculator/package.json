@@ -1,0 +1,19 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc *.ts --target esnext",
+    "eval": "npx tsx index.ts",
+    "test": "tsc --noEmit index.ts && tsx index.test.ts ",
+    "inspect": "tsc --noEmit index.ts && tsx --inspect-brk index.test.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  }
+}
